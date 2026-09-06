@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Frame Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Reset & Premium Aesthetic */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000000 70%);
+        }
+
+        .hero h1 {
+            font-size: 5vw;
+            font-weight: 700;
+            letter-spacing: -2px;
+            background: linear-gradient(180deg, #ffffff 0%, #7a7a7a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #888888;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 50px;
+            font-size: 0.9rem;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: translateY(0); }
+            50% { opacity: 1; transform: translateY(10px); }
+        }
+
+        /* Scroll Animation Section */
+        .scroll-section {
+            height: 400vh; /* Creates the scrolling duration */
+            position: relative;
+        }
+
+        .sticky-container {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Ambient Glow Behind Images */
+        .ambient-glow {
+            position: absolute;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(139, 94, 52, 0.15) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            z-index: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Image Containers */
+        .product-image {
+            position: absolute;
+            width: 100%;
+            max-width: 900px;
+            height: auto;
+            max-height: 85vh;
+            object-fit: contain;
+            z-index: 2;
+            will-change: transform, opacity;
+        }
+
+        #exploded-view {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        #assembled-view {
+            opacity: 0;
+            transform: scale(1.15);
+        }
+
+        /* Typography Overlay */
+        .text-overlay {
+            position: absolute;
+            z-index: 3;
+            text-align: center;
+            bottom: 10%;
+            width: 100%;
+        }
+
+        .text-overlay h2 {
+            position: absolute;
+            width: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2.5rem;
+            font-weight: 500;
+            letter-spacing: -1px;
+            color: #e0e0e0;
+            margin: 0;
+            will-change: opacity, transform;
+        }
+
+        #text-1 { opacity: 1; }
+        #text-2 { opacity: 0; }
+
+        /* Outro Section */
+        .outro {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+        }
+
+        .outro h2 {
+            font-size: 4rem;
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: -1.5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Intro -->
+    <section class="hero">
+        <h1>Masterpiece, Layer by Layer.</h1>
+        <p>A look inside premium craftsmanship.</p>
+        <div class="scroll-indicator">Scroll to explore</div>
+    </section>
+
+    <!-- The 3D Scroll Animation -->
+    <section class="scroll-section" id="animation-trigger">
+        <div class="sticky-container">
+            <div class="ambient-glow"></div>
+            
+            <!-- Exploded Frame (First Image) -->
+            <img src="photoframe.png" alt="Exploded Frame" id="exploded-view" class="product-image">
+            
+            <!-- Assembled Frame (Second Image) -->
+            <img src="photoframe-f.png" alt="Assembled Frame" id="assembled-view" class="product-image">
+
+            <!-- Dynamic Text -->
+            <div class="text-overlay">
+                <h2 id="text-1">Every component matters.</h2>
+                <h2 id="text-2">Flawlessly assembled.</h2>
+            </div>
+        </div>
+    </section>
+
+    <!-- Outro -->
+    <section class="outro">
+        <h2>Bring your memories to life.</h2>
+    </section>
+
+    <script>
+        // Use requestAnimationFrame for incredibly smooth, hardware-accelerated rendering
+        const scrollSection = document.getElementById('animation-trigger');
+        const explodedView = document.getElementById('exploded-view');
+        const assembledView = document.getElementById('assembled-view');
+        const text1 = document.getElementById('text-1');
+        const text2 = document.getElementById('text-2');
+
+        function updateAnimation() {
+            // Get the position of the scroll section relative to the viewport
+            const rect = scrollSection.getBoundingClientRect();
+            
+            // Calculate total scrollable distance within the container
+            const maxScroll = rect.height - window.innerHeight;
+            
+            // Calculate how far down the user has scrolled (0.0 to 1.0)
+            let progress = 0;
+            
+            if (rect.top <= 0) {
+                progress = Math.abs(rect.top) / maxScroll;
+            }
+            
+            // Clamp progress between 0 and 1 to prevent visual bugs
+            progress = Math.max(0, Math.min(1, progress));
+
+            // -- Animation Logic -- //
+            
+            // Phase 1: 0% to 50% (Exploded view transitions out)
+            if (progress <= 0.5) {
+                // Normalize progress for this specific phase (0.0 to 1.0)
+                let phaseProgress = progress / 0.5; 
+                
+                // Fade out exploded view
+                explodedView.style.opacity = Math.max(0, 1 - (phaseProgress * 1.5));
+                explodedView.style.transform = `scale(${1 - (phaseProgress * 0.15)}) translateY(${phaseProgress * 30}px)`;
+                
+                text1.style.opacity = Math.max(0, 1 - (phaseProgress * 2));
+                text1.style.transform = `translateX(-50%) translateY(${phaseProgress * 20}px)`;
+
+                // Ensure assembled view stays hidden
+                assembledView.style.opacity = 0;
+                text2.style.opacity = 0;
+            } 
+            // Phase 2: 50% to 100% (Assembled view transitions in)
+            else {
+                // Normalize progress for this specific phase (0.0 to 1.0)
+                let phaseProgress = (progress - 0.5) / 0.5;
+
+                // Ensure exploded view stays hidden
+                explodedView.style.opacity = 0;
+                text1.style.opacity = 0;
+
+                // Fade in and scale down assembled view for a "snapping into place" 3D effect
+                assembledView.style.opacity = phaseProgress;
+                assembledView.style.transform = `scale(${1.15 - (phaseProgress * 0.15)}) translateY(${-20 + (phaseProgress * 20)}px)`;
+
+                text2.style.opacity = phaseProgress;
+                text2.style.transform = `translateX(-50%) translateY(${10 - (phaseProgress * 10)}px)`;
+            }
+        }
+
+        // Attach event listener directly to window scrolling
+        window.addEventListener('scroll', () => {
+            window.requestAnimationFrame(updateAnimation);
+        });
+
+        // Run once on load in case the user refreshes halfway down the page
+        updateAnimation();
+    </script>
+</body>
+</html>
