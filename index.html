@@ -25,8 +25,9 @@
   </a>
 
   <div class="search-wrap">
-    <input id="searchInput" type="search" placeholder="Search frames, mugs, gifts…" aria-label="Search products"/>
+    <input id="searchInput" type="search" placeholder="Search: frame, mug, shadi, chai… (close spellings work!)" aria-label="Search products" list="searchSuggest" autocomplete="off"/>
     <span aria-hidden="true">🔍</span>
+    <datalist id="searchSuggest"></datalist>
   </div>
 
   <nav class="nav-links" id="navLinks">

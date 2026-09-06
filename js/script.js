@@ -44,19 +44,67 @@ function renderFilters() {
   );
 }
 
+/* ---------- smart fuzzy search (close-names friendly) ---------- */
+const norm = s => (s || "").toLowerCase();
+
+const esc = s => String(s).replace(/[&<>"]/g, c =>
+  ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+/* Levenshtein edit distance — how many single-char edits turn a into b */
+function lev(a, b) {
+  const m = a.length, n = b.length;
+  if (!m) return n;
+  if (!n) return m;
+  let prev = Array.from({ length: n + 1 }, (_, i) => i);
+  for (let i = 1; i <= m; i++) {
+    const cur = [i];
+    for (let j = 1; j <= n; j++) {
+      cur[j] = Math.min(
+        prev[j] + 1,                                   // delete
+        cur[j - 1] + 1,                                // insert
+        prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)  // replace
+      );
+    }
+    prev = cur;
+  }
+  return prev[n];
+}
+
+/* does one search token hit this text? — exact, partial, or typo-close */
+function tokenHits(token, text) {
+  if (text.includes(token)) return true;               // phrase hit
+  return text.split(/[\s,/()•—-]+/).some(w => {
+    if (!w || w.length < 3) return token === w;
+    if (w.includes(token) || token.includes(w)) return true;
+    const max = token.length <= 4 ? 1 : 2;             // typo tolerance
+    return Math.abs(token.length - w.length) <= max && lev(token, w) <= max;
+  });
+}
+
+function productMatches(p, tokens) {
+  const hay = norm([p.name, p.pa, p.cat, p.desc, p.keys || ""].join(" "));
+  return tokens.every(t => tokenHits(t, hay));         // every word must hit
+}
+
 /* ---------- product grid ---------- */
 function visibleProducts() {
-  const term = searchTerm.trim().toLowerCase();
+  const tokens = norm(searchTerm).split(/\s+/).filter(Boolean);
   return PRODUCTS.filter(p =>
     (activeCat === "All" || p.cat === activeCat) &&
-    (!term || (p.name + " " + p.cat + " " + p.desc).toLowerCase().includes(term))
+    (!tokens.length || productMatches(p, tokens))
   );
 }
 
 function renderProducts() {
   const grid = $("#productGrid");
   const list = visibleProducts();
-  $("#emptyMsg").hidden = list.length > 0;
+  const empty = $("#emptyMsg");
+  if (list.length) {
+    empty.hidden = true;
+  } else {
+    empty.innerHTML = `😕 Nothing found for “<b>${esc(searchTerm)}</b>” — try: <b>frame</b>, <b>mug</b>, <b>album</b>, <b>tshirt</b>, <b>calendar</b>`;
+    empty.hidden = false;
+  }
   grid.innerHTML = list.map(p => {
     const off = Math.round((1 - p.price / p.mrp) * 100);
     return `
@@ -196,6 +244,15 @@ $("#searchInput").addEventListener("input", e => {
   searchTerm = e.target.value;
   renderProducts();
 });
+
+/* ---------- search suggestions (datalist) ---------- */
+const suggestions = new Set();
+PRODUCTS.forEach(p => {
+  suggestions.add(p.name);
+  (p.keys || "").split(",").forEach(k => k.trim() && suggestions.add(k.trim()));
+});
+$("#searchSuggest").innerHTML = [...suggestions].sort()
+  .map(s => `<option value="${esc(s)}"></option>`).join("");
 
 /* ---------- push shop config into the page ---------- */
 $("#instaHero").href = SHOP.instagram;
