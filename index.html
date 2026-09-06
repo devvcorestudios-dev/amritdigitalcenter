@@ -1,261 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Frame Experience</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
-    <style>
-        /* Global Reset & Premium Aesthetic */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #000000;
-            color: #ffffff;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: radial-gradient(circle at center, #1a1a1a 0%, #000000 70%);
-        }
-
-        .hero h1 {
-            font-size: 5vw;
-            font-weight: 700;
-            letter-spacing: -2px;
-            background: linear-gradient(180deg, #ffffff 0%, #7a7a7a 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-        }
-
-        .hero p {
-            font-size: 1.5rem;
-            font-weight: 300;
-            color: #888888;
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 50px;
-            font-size: 0.9rem;
-            color: #555;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; transform: translateY(0); }
-            50% { opacity: 1; transform: translateY(10px); }
-        }
-
-        /* Scroll Animation Section */
-        .scroll-section {
-            height: 400vh; /* Creates the scrolling duration */
-            position: relative;
-        }
-
-        .sticky-container {
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            width: 100vw;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        /* Ambient Glow Behind Images */
-        .ambient-glow {
-            position: absolute;
-            width: 50vw;
-            height: 50vw;
-            background: radial-gradient(circle, rgba(139, 94, 52, 0.15) 0%, rgba(0,0,0,0) 70%);
-            border-radius: 50%;
-            z-index: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        /* Image Containers */
-        .product-image {
-            position: absolute;
-            width: 100%;
-            max-width: 900px;
-            height: auto;
-            max-height: 85vh;
-            object-fit: contain;
-            z-index: 2;
-            will-change: transform, opacity;
-        }
-
-        #exploded-view {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        #assembled-view {
-            opacity: 0;
-            transform: scale(1.15);
-        }
-
-        /* Typography Overlay */
-        .text-overlay {
-            position: absolute;
-            z-index: 3;
-            text-align: center;
-            bottom: 10%;
-            width: 100%;
-        }
-
-        .text-overlay h2 {
-            position: absolute;
-            width: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 2.5rem;
-            font-weight: 500;
-            letter-spacing: -1px;
-            color: #e0e0e0;
-            margin: 0;
-            will-change: opacity, transform;
-        }
-
-        #text-1 { opacity: 1; }
-        #text-2 { opacity: 0; }
-
-        /* Outro Section */
-        .outro {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #000;
-        }
-
-        .outro h2 {
-            font-size: 4rem;
-            color: #fff;
-            font-weight: 700;
-            letter-spacing: -1.5px;
-        }
-    </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Amit Digital Centre — Photo &amp; Frame Shop | ਅਮਿਤ ਡਿਜੀਟਲ ਸੈਂਟਰ</title>
+<meta name="description" content="Amit Digital Centre — photo frames, canvas prints, mugs, keychains, wedding albums &amp; studio services. Add to cart &amp; order on WhatsApp!"/>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📸</text></svg>"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Mukta+Mahee:wght@500;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
 
-    <!-- Intro -->
-    <section class="hero">
-        <h1>Masterpiece, Layer by Layer.</h1>
-        <p>A look inside premium craftsmanship.</p>
-        <div class="scroll-indicator">Scroll to explore</div>
-    </section>
+<div class="phulkari-strip" aria-hidden="true"></div>
 
-    <!-- The 3D Scroll Animation -->
-    <section class="scroll-section" id="animation-trigger">
-        <div class="sticky-container">
-            <div class="ambient-glow"></div>
-            
-            <!-- Exploded Frame (First Image) -->
-            <img src="photoframe.png" alt="Exploded Frame" id="exploded-view" class="product-image">
-            
-            <!-- Assembled Frame (Second Image) -->
-            <img src="photoframe-f.png" alt="Assembled Frame" id="assembled-view" class="product-image">
+<header class="navbar" id="navbar">
+  <a class="brand" href="#home">
+    <span class="brand-logo" aria-hidden="true">📸</span>
+    <span class="brand-text">
+      <strong>Amit Digital Centre</strong>
+      <small>ਅਮਿਤ ਡਿਜੀਟਲ ਸੈਂਟਰ • Photo &amp; Frame Studio</small>
+    </span>
+  </a>
 
-            <!-- Dynamic Text -->
-            <div class="text-overlay">
-                <h2 id="text-1">Every component matters.</h2>
-                <h2 id="text-2">Flawlessly assembled.</h2>
-            </div>
-        </div>
-    </section>
+  <div class="search-wrap">
+    <input id="searchInput" type="search" placeholder="Search frames, mugs, gifts…" aria-label="Search products"/>
+    <span aria-hidden="true">🔍</span>
+  </div>
 
-    <!-- Outro -->
-    <section class="outro">
-        <h2>Bring your memories to life.</h2>
-    </section>
+  <nav class="nav-links" id="navLinks">
+    <a href="#home">Home</a>
+    <a href="#products">Products</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
 
-    <script>
-        // Use requestAnimationFrame for incredibly smooth, hardware-accelerated rendering
-        const scrollSection = document.getElementById('animation-trigger');
-        const explodedView = document.getElementById('exploded-view');
-        const assembledView = document.getElementById('assembled-view');
-        const text1 = document.getElementById('text-1');
-        const text2 = document.getElementById('text-2');
+  <button id="cartBtn" class="cart-btn" aria-label="Open cart">🛒 <span class="cart-btn-label">Cart</span> <span id="cartCount" class="cart-count">0</span></button>
+  <button id="menuBtn" class="menu-btn" aria-label="Toggle menu">☰</button>
+</header>
 
-        function updateAnimation() {
-            // Get the position of the scroll section relative to the viewport
-            const rect = scrollSection.getBoundingClientRect();
-            
-            // Calculate total scrollable distance within the container
-            const maxScroll = rect.height - window.innerHeight;
-            
-            // Calculate how far down the user has scrolled (0.0 to 1.0)
-            let progress = 0;
-            
-            if (rect.top <= 0) {
-                progress = Math.abs(rect.top) / maxScroll;
-            }
-            
-            // Clamp progress between 0 and 1 to prevent visual bugs
-            progress = Math.max(0, Math.min(1, progress));
+<main>
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="home">
+    <div class="hero-inner">
+      <p class="hero-hello">ਸਤ ਸ੍ਰੀ ਅਕਾਲ 🙏 Welcome Ji!</p>
+      <h1>Turn Your <span class="hl-yellow">Memories</span> Into <span class="hl-pink">Colourful</span> Frames</h1>
+      <p class="hero-sub">Photo frames • Canvas prints • Mugs • Keychains • Wedding albums — everything your photos deserve, with full Punjab swag! 🌾🪁</p>
+      <div class="hero-cta">
+        <a href="#products" class="btn btn-primary">🛍️ Shop Now</a>
+        <a id="instaHero" class="btn btn-insta" href="https://www.instagram.com/amrit_digital_centre" target="_blank" rel="noopener">📷 Follow on Instagram</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong>7,612+</strong><span>Instagram Family</span></div>
+        <div><strong>10,000+</strong><span>Happy Customers</span></div>
+        <div><strong>50+</strong><span>Photo Products</span></div>
+      </div>
+    </div>
+    <div class="hero-deco" aria-hidden="true">
+      <span class="float f1">🖼️</span>
+      <span class="float f2">🌾</span>
+      <span class="float f3">📷</span>
+      <span class="float f4">🥁</span>
+      <span class="float f5">💛</span>
+      <span class="float f6">🪁</span>
+    </div>
+  </section>
 
-            // -- Animation Logic -- //
-            
-            // Phase 1: 0% to 50% (Exploded view transitions out)
-            if (progress <= 0.5) {
-                // Normalize progress for this specific phase (0.0 to 1.0)
-                let phaseProgress = progress / 0.5; 
-                
-                // Fade out exploded view
-                explodedView.style.opacity = Math.max(0, 1 - (phaseProgress * 1.5));
-                explodedView.style.transform = `scale(${1 - (phaseProgress * 0.15)}) translateY(${phaseProgress * 30}px)`;
-                
-                text1.style.opacity = Math.max(0, 1 - (phaseProgress * 2));
-                text1.style.transform = `translateX(-50%) translateY(${phaseProgress * 20}px)`;
+  <!-- ============ TICKER ============ -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>📸 Passport Photos ₹99</span>
+      <span>🖼️ Photo Frames from ₹199</span>
+      <span>☕ Photo Mugs ₹299</span>
+      <span>🔑 Keychains ₹149</span>
+      <span>💍 Wedding Albums</span>
+      <span>👕 Photo T-Shirts ₹599</span>
+      <span>🚚 Home Delivery across Punjab</span>
+      <span>📸 Passport Photos ₹99</span>
+      <span>🖼️ Photo Frames from ₹199</span>
+      <span>☕ Photo Mugs ₹299</span>
+      <span>🔑 Keychains ₹149</span>
+      <span>💍 Wedding Albums</span>
+      <span>👕 Photo T-Shirts ₹599</span>
+      <span>🚚 Home Delivery across Punjab</span>
+    </div>
+  </div>
+  <!-- ============ PRODUCTS ============ -->
+  <section class="section" id="products">
+    <h2 class="section-title">🛍️ Our Products <span class="pa">— ਸਾਡੇ ਪ੍ਰੋਡਕਟਸ</span></h2>
+    <p class="section-sub">Fresh from our studio — real prices, easy add-to-cart, and order straight on WhatsApp!</p>
+    <div class="filters" id="filters" aria-label="Product categories"></div>
+    <div class="grid" id="productGrid"></div>
+    <p id="emptyMsg" class="empty-msg" hidden>😕 No products found — try another search, ji!</p>
+  </section>
 
-                // Ensure assembled view stays hidden
-                assembledView.style.opacity = 0;
-                text2.style.opacity = 0;
-            } 
-            // Phase 2: 50% to 100% (Assembled view transitions in)
-            else {
-                // Normalize progress for this specific phase (0.0 to 1.0)
-                let phaseProgress = (progress - 0.5) / 0.5;
+  <!-- ============ ABOUT ============ -->
+  <section class="section" id="about">
+    <div class="about-card">
+      <div class="about-emoji" aria-hidden="true">🌾</div>
+      <div class="about-body">
+        <h2>About Us <span class="pa">— ਸਾਡੇ ਬਾਰੇ</span></h2>
+        <p>Amit Digital Centre is your neighbourhood photo studio in Punjab. From passport photos to premium wedding albums, we turn your precious memories into colourful keepsakes — with the warmth and masti of Punjab in every order. We're proud of our <strong>7,612+ Instagram family</strong> — come join us!</p>
+        <ul class="about-points">
+          <li>⚡ Same-day printing &amp; framing</li>
+          <li>🎁 Free gift wrapping on all gifts</li>
+          <li>🚚 Home delivery across Punjab</li>
+          <li>💯 Quality guarantee on every order</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
 
-                // Ensure exploded view stays hidden
-                explodedView.style.opacity = 0;
-                text1.style.opacity = 0;
+<!-- ============ FOOTER ============ -->
+<footer class="footer" id="contact">
+  <div class="phulkari-strip" aria-hidden="true"></div>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h3>📸 Amit Digital Centre</h3>
+      <p class="pa footer-pa">ਅਮਿਤ ਡਿਜੀਟਲ ਸੈਂਟਰ</p>
+      <p>📍 <span id="shopAddress">Main Bazaar, Punjab, India</span></p>
+      <p>📞 <a id="shopPhone" href="tel:+919999999999">+91 99999 99999</a></p>
+      <p>🕘 Open Mon–Sun • 9:00 AM – 8:00 PM</p>
+    </div>
+    <div class="footer-col">
+      <h3>Quick Links</h3>
+      <a href="#home">Home</a>
+      <a href="#products">Products</a>
+      <a href="#about">About</a>
+    </div>
+    <div class="footer-col">
+      <h3>Order &amp; Follow</h3>
+      <a id="instaFooter" class="pill pill-insta" href="https://www.instagram.com/amrit_digital_centre" target="_blank" rel="noopener">📷 @amrit_digital_centre</a>
+      <a id="waFooter" class="pill pill-wa" href="#" target="_blank" rel="noopener">✅ WhatsApp Us</a>
+      <a id="callFooter" class="pill pill-call" href="tel:+919999999999">📞 Call the Shop</a>
+    </div>
+  </div>
+  <p class="footer-copy">Made with 💛 in Punjab • © 2026 Amit Digital Centre • All rights reserved</p>
+</footer>
 
-                // Fade in and scale down assembled view for a "snapping into place" 3D effect
-                assembledView.style.opacity = phaseProgress;
-                assembledView.style.transform = `scale(${1.15 - (phaseProgress * 0.15)}) translateY(${-20 + (phaseProgress * 20)}px)`;
+<!-- ============ CART DRAWER ============ -->
+<div id="overlay" class="overlay" aria-hidden="true"></div>
+<aside id="cartDrawer" class="cart-drawer" aria-label="Shopping cart" aria-hidden="true">
+  <div class="cart-head">
+    <h3>🛒 Your Cart <span class="pa">ਤੁਹਾਡੀ ਟੋਕਰੀ</span></h3>
+    <button id="closeCart" class="close-btn" aria-label="Close cart">✕</button>
+  </div>
+  <div id="cartItems" class="cart-items"></div>
+  <div id="cartEmpty" class="cart-empty">
+    <span aria-hidden="true">🧺</span>
+    <p>Your cart is empty…<br/>Add some colour to it, ji!</p>
+  </div>
+  <div class="cart-foot" id="cartFoot">
+    <div class="cart-total"><span>Total <span class="pa">ਕੁੱਲ</span></span><strong id="cartTotal">₹0</strong></div>
+    <button id="checkoutBtn" class="btn btn-primary btn-block">✅ Order on WhatsApp</button>
+    <button id="clearCartBtn" class="btn btn-ghost btn-block">🗑️ Clear Cart</button>
+  </div>
+</aside>
 
-                text2.style.opacity = phaseProgress;
-                text2.style.transform = `translateX(-50%) translateY(${10 - (phaseProgress * 10)}px)`;
-            }
-        }
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-        // Attach event listener directly to window scrolling
-        window.addEventListener('scroll', () => {
-            window.requestAnimationFrame(updateAnimation);
-        });
+<script src="js/products.js"></script>
+<script src="js/script.js"></script>
 
-        // Run once on load in case the user refreshes halfway down the page
-        updateAnimation();
-    </script>
 </body>
 </html>
